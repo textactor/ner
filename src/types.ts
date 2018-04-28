@@ -7,28 +7,26 @@ export type Context = {
     country: string
 }
 
-export type ResultEntity = {
+export type EResultEntity = {
     id: string
     name: string
     abbr?: string
-    wikiEntityId?: string
+    wikiDataId?: string
     description?: string
     type?: ActorType
 }
 
-export type ResultConcept = {
+export type EResultConcept = {
     text: string
     index: number
     abbr?: string
 }
 
-export type ResultEntityItem = {
-    entity: ResultEntity
-    concepts: ResultConcept[]
+export type EResultEntityItem = {
+    entity: EResultEntity
+    concepts: EResultConcept[]
 }
 
-export type Results = {
-    entities: {
-        [id: string]: ResultEntityItem
-    }
+export type EResult = {
+    entities: EResultEntityItem[]
 }
