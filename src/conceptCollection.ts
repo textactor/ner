@@ -1,5 +1,9 @@
+
+const debug = require('debug')('textactor:ner');
+
 import { Actor, ActorHelper } from "@textactor/actor-domain";
 import { Concept } from "concepts-parser";
+import { NameHelper } from "@textactor/domain";
 
 export class EConceptCollection {
     protected list: EConcept[] = []
@@ -31,8 +35,11 @@ export class EConceptCollection {
         if (!concepts || concepts.length === 0) {
             return;
         }
+        this.map.delete(id);
         for (let concept of concepts) {
+            const len = this.list.length;
             this.list.splice(this.list.indexOf(concept), 1);
+            debug(`deleted concept: ${concept.value}, ${len}>${this.list.length}`);
         }
     }
 
@@ -53,27 +60,41 @@ export class EConceptCollection {
     }
 }
 
-export class EConcept extends Concept {
+export class EConcept {
     id: string
     childIds: string[] = []
     parentId?: string
     actor?: Actor
+    isAbbr: boolean
+    countWords: number
+
+    constructor(public value: string, public index: number, lang: string, country: string, public abbr?: string) {
+        this.countWords = NameHelper.countWords(value);
+        this.isAbbr = NameHelper.isAbbr(value);
+        this.id = EConcept.createId(value, lang, country);
+    }
 
     setChilds(childs: EConcept[]) {
+        debug(`set concept childs: ${this.value}`)
         for (let child of childs) {
             child.parentId = this.id;
             this.childIds.push(child.id);
+            debug(`set concept(${child.value}) parent id: ${this.id}`);
         }
     }
 
-    static create(concept: Concept, lang: string, country: string) {
-        const ec = new EConcept(concept);
-        ec.id = EConcept.createId(concept, lang, country);
-
-        return ec;
+    split(lang: string, country: string) {
+        if (this.countWords === 1) {
+            return [];
+        }
+        return (new Concept({ value: this.value, index: this.index })).split(lang).map(item => EConcept.create(item, lang, country));
     }
 
-    static createId(concept: Concept, lang: string, country: string) {
-        return ActorHelper.createNameId(concept.value, lang, country);
+    static create(concept: Concept, lang: string, country: string) {
+        return new EConcept(concept.value, concept.index, lang, country, concept.abbr);
+    }
+
+    static createId(value: string, lang: string, country: string) {
+        return ActorHelper.createNameId(value, lang, country);
     }
 }

@@ -2,7 +2,7 @@
 const debug = require('debug')('textactor:ner');
 
 import { EConceptCollection, EConcept } from "./conceptCollection";
-import { EResult, EResultEntityItem, EResultEntity, EResultConcept } from "./types";
+import { EResult, EResultEntityItem, EResultEntity, EResultInput } from "./types";
 import { Actor } from "@textactor/actor-domain";
 
 export function formatResult(concepts: EConceptCollection): EResult {
@@ -19,18 +19,18 @@ export function formatResult(concepts: EConceptCollection): EResult {
             entityItem = toResultEntityItem(concept.actor);
             result.entities.push(entityItem);
         }
-        entityItem.concepts.push(toConcept(concept));
+        entityItem.input.push(toConcept(concept));
     }
 
     return result;
 }
 
 function toResultEntityItem(actor: Actor): EResultEntityItem {
-    return { entity: toResultEntity(actor), concepts: [] };
+    return { entity: toResultEntity(actor), input: [] };
 }
 
-function toConcept(concept: EConcept): EResultConcept {
-    const erc: EResultConcept = {
+function toConcept(concept: EConcept): EResultInput {
+    const erc: EResultInput = {
         text: concept.value,
         index: concept.index,
     };

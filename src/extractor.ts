@@ -26,8 +26,6 @@ export class Extractor {
             return { entities: [] };
         }
 
-        debug(`actors exists: ${JSON.stringify(actors)}`);
-
         filterConcepts(concepts);
 
         const result = formatResult(concepts);

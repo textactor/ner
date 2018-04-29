@@ -16,7 +16,7 @@ export type EResultEntity = {
     type?: ActorType
 }
 
-export type EResultConcept = {
+export type EResultInput = {
     text: string
     index: number
     abbr?: string
@@ -24,7 +24,7 @@ export type EResultConcept = {
 
 export type EResultEntityItem = {
     entity: EResultEntity
-    concepts: EResultConcept[]
+    input: EResultInput[]
 }
 
 export type EResult = {
