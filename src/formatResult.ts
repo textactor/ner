@@ -48,6 +48,10 @@ function toResultEntity(actor: Actor): EResultEntity {
         entity.type = actor.type;
     }
 
+    if (actor.wikiPageTitle) {
+        entity.wikiPageTitle = actor.wikiPageTitle;
+    }
+
     if (actor.description) {
         entity.description = actor.description;
     }

@@ -1,12 +1,13 @@
 
 const debug = require('debug')('textactor:ner');
 
-import { EConceptCollection } from "./conceptCollection";
+import { EConceptCollection, EConcept } from "./conceptCollection";
 
 export function filterConcepts(collection: EConceptCollection): EConceptCollection {
     identifyPartialConcepts(collection);
 
     const deleteIds: string[] = [];
+    const deleteConcepts: EConcept[] = [];
 
     for (let concept of collection.getList()) {
         if (!concept.actor) {
@@ -22,7 +23,8 @@ export function filterConcepts(collection: EConceptCollection): EConceptCollecti
                 if (parentConcepts[0].actor) {
                     debug(`removing child concept: ${concept.value}`);
                     // collection.removeById(concept.id);
-                    deleteIds.push(concept.id);
+                    deleteConcepts.push(concept);
+                    // deleteIds.push(concept.id);
                     continue;
                 } else {
                     debug(`removing parent concept: ${parentConcepts[0].value}`);
@@ -37,6 +39,9 @@ export function filterConcepts(collection: EConceptCollection): EConceptCollecti
 
     for (let id of deleteIds) {
         collection.removeById(id);
+    }
+    for (let concept of deleteConcepts) {
+        collection.remove(concept);
     }
 
     return collection;

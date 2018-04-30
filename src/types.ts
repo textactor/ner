@@ -12,6 +12,7 @@ export type EResultEntity = {
     name: string
     abbr?: string
     wikiDataId?: string
+    wikiPageTitle?: string
     description?: string
     type?: ActorType
 }

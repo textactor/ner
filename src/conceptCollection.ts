@@ -42,6 +42,20 @@ export class EConceptCollection {
             debug(`deleted concept: ${concept.value}, ${len}>${this.list.length}`);
         }
     }
+    remove(concept: EConcept) {
+        const concepts = this.map.get(concept.id) || [];
+        if (!concepts.length) {
+            return;
+        }
+        let index = concepts.indexOf(concept);
+        if (index < 0) {
+            return;
+        }
+        concepts.splice(index, 1);
+        index = this.list.indexOf(concept);
+        this.list.splice(index, 1);
+        debug(`deleted concept: ${concept.value}`);
+    }
 
     setActor(id: string, actor: Actor) {
         this.map.get(id).forEach(item => item.actor = actor);
