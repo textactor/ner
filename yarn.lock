@@ -44,6 +44,13 @@
   dependencies:
     arrify "^1.0.1"
 
+"@textactor/actor-domain@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@textactor/actor-domain/-/actor-domain-0.1.0.tgz#91f200f116e49d4b71f431cd69cf4fcce17bb382"
+  dependencies:
+    "@textactor/domain" "^0.1.4"
+    shortid "^2.2.8"
+
 "@textactor/domain@^0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@textactor/domain/-/domain-0.1.4.tgz#6dc901d7442ed83e64866578a729cf386e288471"
@@ -2434,6 +2441,10 @@ shebang-command@^1.2.0:
 shebang-regex@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-1.0.0.tgz#da42f49740c0b42db2ca9728571cb190c98efea3"
+
+shortid@^2.2.8:
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/shortid/-/shortid-2.2.8.tgz#033b117d6a2e975804f6f0969dbe7d3d0b355131"
 
 signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
