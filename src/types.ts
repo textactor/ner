@@ -8,7 +8,7 @@ export type Context = {
 }
 
 export type EResultEntity = {
-    id: string
+    id?: string
     name: string
     abbr?: string
     wikiDataId?: string

@@ -3,11 +3,13 @@ import { identifyPartialConcepts, filterConcepts } from './filterConcepts';
 import test from 'ava';
 import { EConceptCollection, EConcept } from './conceptCollection';
 import { Concept } from 'concepts-parser';
+import { ActorType } from '@textactor/actor-domain';
 
 test('identifyPartialConcepts: ABBR', t => {
 
     const collection = new EConceptCollection();
-    const concepts = [EConcept.create(new Concept({ value: 'Long Concept', index: 1 }), 'en', 'us'), EConcept.create(new Concept({ value: 'ABBR', index: 100 }), 'en', 'us')];
+    const lang = 'en';
+    const concepts = [EConcept.create(new Concept({ value: 'Long Concept', index: 1, lang }), 'en', 'us'), EConcept.create(new Concept({ value: 'ABBR', index: 100, lang }), 'en', 'us')];
     concepts[0].abbr = 'ABBR';
 
     collection.add(concepts);
@@ -25,7 +27,8 @@ test('identifyPartialConcepts: ABBR', t => {
 test('identifyPartialConcepts', t => {
 
     const collection = new EConceptCollection();
-    const concepts = [EConcept.create(new Concept({ value: 'Long Concept', index: 1 }), 'en', 'us'), EConcept.create(new Concept({ value: 'Concept', index: 100 }), 'en', 'us')];
+    const lang = 'en';
+    const concepts = [EConcept.create(new Concept({ value: 'Long Concept', index: 1, lang }), 'en', 'us'), EConcept.create(new Concept({ value: 'Concept', index: 100, lang }), 'en', 'us')];
 
     collection.add(concepts);
     collection.setActor(concepts[0].id, { id: 'id', name: 'Name' });
@@ -42,7 +45,8 @@ test('identifyPartialConcepts', t => {
 test('not identifyPartialConcepts', t => {
 
     const collection = new EConceptCollection();
-    const concepts = [EConcept.create(new Concept({ value: 'Long Concept', index: 1 }), 'en', 'us'), EConcept.create(new Concept({ value: 'Concept1', index: 100 }), 'en', 'us')];
+    const lang = 'en';
+    const concepts = [EConcept.create(new Concept({ value: 'Long Concept', index: 1, lang }), 'en', 'us'), EConcept.create(new Concept({ value: 'Concept1', index: 100, lang }), 'en', 'us')];
 
     collection.add(concepts);
     collection.setActor(concepts[0].id, { id: 'id', name: 'Name' });
@@ -60,7 +64,8 @@ test('not identifyPartialConcepts', t => {
 test('filter child concept', t => {
 
     const collection = new EConceptCollection();
-    const concepts = [EConcept.create(new Concept({ value: 'Republica Moldova', index: 1 }), 'ro', 'md'), EConcept.create(new Concept({ value: 'Moldova', index: 100 }), 'ro', 'md')];
+    const lang = 'ro';
+    const concepts = [EConcept.create(new Concept({ value: 'Republica Moldova', index: 1, lang }), 'ro', 'md'), EConcept.create(new Concept({ value: 'Moldova', index: 100, lang }), 'ro', 'md')];
     concepts[0].setChilds([concepts[1]]);
 
     collection.add(concepts);
@@ -73,4 +78,22 @@ test('filter child concept', t => {
 
     t.is(collection.getList().length, 1);
     t.is(collection.getList()[0].actor.name, 'Name');
+});
+
+test('filter child concept by type', t => {
+
+    const collection = new EConceptCollection();
+    const lang = 'ro';
+    const concepts = [EConcept.create(new Concept({ value: 'Republica Moldova', index: 1, lang }), 'ro', 'md'), EConcept.create(new Concept({ value: 'Moldova', index: 100, lang }), 'ro', 'md')];
+    concepts[0].setChilds([concepts[1]]);
+
+    collection.add(concepts);
+    concepts[0].type = ActorType.PERSON;
+
+    t.is(collection.getList().length, 2);
+
+    filterConcepts(collection);
+
+    t.is(collection.getList().length, 1);
+    t.is(collection.getList()[0].type, 'PERSON');
 });

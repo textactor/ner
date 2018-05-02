@@ -20,11 +20,7 @@ export class Extractor {
             return { entities: [] };
         }
 
-        const actors = await this.getActors(concepts);
-
-        if (actors.length === 0) {
-            return { entities: [] };
-        }
+        await this.getActors(concepts);
 
         filterConcepts(concepts);
 

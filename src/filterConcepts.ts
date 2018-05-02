@@ -10,7 +10,7 @@ export function filterConcepts(collection: EConceptCollection): EConceptCollecti
     const deleteConcepts: EConcept[] = [];
 
     for (let concept of collection.getList()) {
-        if (!concept.actor) {
+        if (!concept.actor && !concept.type) {
             // collection.removeById(concept.id);
             deleteIds.push(concept.id);
             continue;
@@ -20,7 +20,7 @@ export function filterConcepts(collection: EConceptCollection): EConceptCollecti
             debug(`concept with parentId=${concept.value}`)
             const parentConcepts = collection.getById(concept.parentId);
             if (parentConcepts.length) {
-                if (parentConcepts[0].actor) {
+                if (parentConcepts[0].actor || parentConcepts[0].type) {
                     debug(`removing child concept: ${concept.value}`);
                     // collection.removeById(concept.id);
                     deleteConcepts.push(concept);

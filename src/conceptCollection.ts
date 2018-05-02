@@ -1,7 +1,7 @@
 
 const debug = require('debug')('textactor:ner');
 
-import { Actor, ActorHelper } from "@textactor/actor-domain";
+import { Actor, ActorHelper, ActorType } from "@textactor/actor-domain";
 import { Concept } from "concepts-parser";
 import { NameHelper } from "@textactor/domain";
 
@@ -82,7 +82,7 @@ export class EConcept {
     isAbbr: boolean
     countWords: number
 
-    constructor(public value: string, public index: number, lang: string, country: string, public abbr?: string) {
+    constructor(public value: string, public index: number, lang: string, country: string, public abbr?: string, public type?: ActorType) {
         this.countWords = NameHelper.countWords(value);
         this.isAbbr = NameHelper.isAbbr(value);
         this.id = EConcept.createId(value, lang, country);
@@ -101,14 +101,20 @@ export class EConcept {
         if (this.countWords === 1) {
             return [];
         }
-        return (new Concept({ value: this.value, index: this.index })).split(lang).map(item => EConcept.create(item, lang, country));
+        return (new Concept({ value: this.value, index: this.index, lang })).split().map(item => EConcept.create(item, lang, country));
     }
 
     static create(concept: Concept, lang: string, country: string) {
-        return new EConcept(concept.value, concept.index, lang, country, concept.abbr);
+        return new EConcept(concept.value, concept.index, lang, country, concept.abbr, toActorType(concept.type));
     }
 
     static createId(value: string, lang: string, country: string) {
         return ActorHelper.createNameId(value, lang, country);
+    }
+}
+
+function toActorType(conceptType: string): ActorType {
+    switch (conceptType) {
+        case 'PERSON': return ActorType.PERSON;
     }
 }

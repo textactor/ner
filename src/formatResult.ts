@@ -1,22 +1,17 @@
 
-const debug = require('debug')('textactor:ner');
+// const debug = require('debug')('textactor:ner');
 
 import { EConceptCollection, EConcept } from "./conceptCollection";
 import { EResult, EResultEntityItem, EResultEntity, EResultInput } from "./types";
-import { Actor } from "@textactor/actor-domain";
 
 export function formatResult(concepts: EConceptCollection): EResult {
     const result: EResult = { entities: [] };
 
     for (let concept of concepts.getList()) {
-        if (!concept.actor) {
-            debug(`no actor for concept: ${concept.value}`);
-            continue;
-        }
-        debug(`concept has actor: ${concept.value}`);
-        let entityItem = result.entities.find(item => item.entity.id === concept.actor.id);
+        const name = concept.actor && concept.actor.name || concept.value;
+        let entityItem = result.entities.find(item => item.entity.name === name);
         if (!entityItem) {
-            entityItem = toResultEntityItem(concept.actor);
+            entityItem = toResultEntityItem(concept);
             result.entities.push(entityItem);
         }
         entityItem.input.push(toConcept(concept));
@@ -25,8 +20,8 @@ export function formatResult(concepts: EConceptCollection): EResult {
     return result;
 }
 
-function toResultEntityItem(actor: Actor): EResultEntityItem {
-    return { entity: toResultEntity(actor), input: [] };
+function toResultEntityItem(concept: EConcept): EResultEntityItem {
+    return { entity: toResultEntity(concept), input: [] };
 }
 
 function toConcept(concept: EConcept): EResultInput {
@@ -38,26 +33,33 @@ function toConcept(concept: EConcept): EResultInput {
     return erc;
 }
 
-function toResultEntity(actor: Actor): EResultEntity {
+function toResultEntity(concept: EConcept): EResultEntity {
     const entity: EResultEntity = {
-        id: actor.id,
-        name: actor.name,
+        name: concept.actor && concept.actor.name || concept.value,
     };
 
-    if (actor.type) {
-        entity.type = actor.type;
-    }
+    if (concept.actor) {
+        const actor = concept.actor;
+        entity.id = actor.id;
+        if (actor.type) {
+            entity.type = actor.type;
+        }
 
-    if (actor.wikiPageTitle) {
-        entity.wikiPageTitle = actor.wikiPageTitle;
-    }
+        if (actor.wikiPageTitle) {
+            entity.wikiPageTitle = actor.wikiPageTitle;
+        }
 
-    if (actor.description) {
-        entity.description = actor.description;
-    }
+        if (actor.description) {
+            entity.description = actor.description;
+        }
 
-    if (actor.wikiDataId) {
-        entity.wikiDataId = actor.wikiDataId;
+        if (actor.wikiDataId) {
+            entity.wikiDataId = actor.wikiDataId;
+        }
+    } else {
+        if (concept.type) {
+            entity.type = concept.type;
+        }
     }
 
     return entity;
