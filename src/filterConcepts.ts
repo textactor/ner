@@ -2,6 +2,7 @@
 const debug = require('debug')('textactor:ner');
 
 import { EConceptCollection, EConcept } from "./conceptCollection";
+import { ActorType } from "@textactor/actor-domain";
 
 export function filterConcepts(collection: EConceptCollection): EConceptCollection {
     identifyPartialConcepts(collection);
@@ -66,11 +67,13 @@ export function identifyPartialConcepts(collection: EConceptCollection) {
                     debug(`found abbr child concept: ${childConcept.value}`);
                     childConcept.actor = concept.actor;
                 }
-            } else {
-                const reg = new RegExp('\\b' + childConcept.value + '\\b');
-                if (reg.test(concept.value)) {
-                    debug(`found partial child concept: ${childConcept.value}`);
-                    childConcept.actor = concept.actor;
+            } else if (!childConcept.parentId) {
+                if (concept.actor.type === ActorType.PERSON || concept.type === ActorType.PERSON) {
+                    const reg = new RegExp('\\b' + childConcept.value + '\\b');
+                    if (reg.test(concept.value)) {
+                        debug(`found partial child concept: ${childConcept.value}`);
+                        childConcept.actor = concept.actor;
+                    }
                 }
             }
         }
