@@ -9,7 +9,10 @@ test('identifyPartialConcepts: ABBR', t => {
 
     const collection = new EConceptCollection();
     const lang = 'en';
-    const concepts = [EConcept.create(new Concept({ value: 'Long Concept', index: 1, lang }), 'en', 'us'), EConcept.create(new Concept({ value: 'ABBR', index: 100, lang }), 'en', 'us')];
+    const concepts = [
+        EConcept.create(new Concept({ value: 'Long Concept', index: 1, lang }), 'en', 'us'),
+        EConcept.create(new Concept({ value: 'ABBR', index: 100, lang }), 'en', 'us')
+    ];
     concepts[0].abbr = 'ABBR';
 
     collection.add(concepts);
@@ -28,7 +31,10 @@ test('identifyPartialConcepts', t => {
 
     const collection = new EConceptCollection();
     const lang = 'en';
-    const concepts = [EConcept.create(new Concept({ value: 'Long Concept', index: 1, lang }), 'en', 'us'), EConcept.create(new Concept({ value: 'Concept', index: 100, lang }), 'en', 'us')];
+    const concepts = [
+        EConcept.create(new Concept({ value: 'Long Concept', index: 1, lang }), 'en', 'us'),
+        EConcept.create(new Concept({ value: 'Concept', index: 100, lang }), 'en', 'us')
+    ];
 
     collection.add(concepts);
     collection.setActor(concepts[0].id, { id: 'id', name: 'Name' });
@@ -39,14 +45,17 @@ test('identifyPartialConcepts', t => {
 
     t.is(collection.getList().length, 2);
     t.is(collection.getList()[0].actor.name, 'Name');
-    t.is(collection.getList()[1].actor.name, 'Name');
+    t.is(collection.getList()[1].actor, undefined);
 });
 
 test('not identifyPartialConcepts', t => {
 
     const collection = new EConceptCollection();
     const lang = 'en';
-    const concepts = [EConcept.create(new Concept({ value: 'Long Concept', index: 1, lang }), 'en', 'us'), EConcept.create(new Concept({ value: 'Concept1', index: 100, lang }), 'en', 'us')];
+    const concepts = [
+        EConcept.create(new Concept({ value: 'Long Concept', index: 1, lang }), 'en', 'us'),
+        EConcept.create(new Concept({ value: 'Concept1', index: 100, lang }), 'en', 'us')
+    ];
 
     collection.add(concepts);
     collection.setActor(concepts[0].id, { id: 'id', name: 'Name' });
@@ -65,7 +74,10 @@ test('filter child concept', t => {
 
     const collection = new EConceptCollection();
     const lang = 'ro';
-    const concepts = [EConcept.create(new Concept({ value: 'Republica Moldova', index: 1, lang }), 'ro', 'md'), EConcept.create(new Concept({ value: 'Moldova', index: 100, lang }), 'ro', 'md')];
+    const concepts = [
+        EConcept.create(new Concept({ value: 'Republica Moldova', index: 1, lang }), 'ro', 'md'),
+        EConcept.create(new Concept({ value: 'Moldova', index: 100, lang }), 'ro', 'md')
+    ];
     concepts[0].setChilds([concepts[1]]);
 
     collection.add(concepts);
@@ -84,7 +96,10 @@ test('filter child concept by type', t => {
 
     const collection = new EConceptCollection();
     const lang = 'ro';
-    const concepts = [EConcept.create(new Concept({ value: 'Republica Moldova', index: 1, lang }), 'ro', 'md'), EConcept.create(new Concept({ value: 'Moldova', index: 100, lang }), 'ro', 'md')];
+    const concepts = [
+        EConcept.create(new Concept({ value: 'Republica Moldova', index: 1, lang }), 'ro', 'md'),
+        EConcept.create(new Concept({ value: 'Moldova', index: 100, lang }), 'ro', 'md')
+    ];
     concepts[0].setChilds([concepts[1]]);
 
     collection.add(concepts);

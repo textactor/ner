@@ -44,9 +44,9 @@
   dependencies:
     arrify "^1.0.1"
 
-"@textactor/actor-domain@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@textactor/actor-domain/-/actor-domain-0.1.1.tgz#e2405313d489324c067db88a69768809e9cad528"
+"@textactor/actor-domain@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@textactor/actor-domain/-/actor-domain-0.1.2.tgz#6e4ea0a77484cd6737f9401307477a69dd4d4bbc"
   dependencies:
     "@textactor/domain" "^0.1.4"
     shortid "^2.2.8"
