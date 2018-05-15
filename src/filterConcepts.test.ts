@@ -112,3 +112,24 @@ test('filter child concept by type', t => {
     t.is(collection.getList().length, 1);
     t.is(collection.getList()[0].type, 'PERSON');
 });
+
+test('identify/filter partial concepts by type', t => {
+
+    const collection = new EConceptCollection();
+    const lang = 'ro';
+    const concepts = [
+        EConcept.create(new Concept({ value: 'Charlotte', index: 0, lang }), 'ro', 'md'),
+        EConcept.create(new Concept({ value: 'Charlotte Mounbatten-Windsor', index: 50, lang }), 'ro', 'md'),
+        EConcept.create(new Concept({ value: 'Charlotte', index: 100, lang }), 'ro', 'md'),
+    ];
+
+    collection.add(concepts);
+    concepts[1].type = ActorType.PERSON;
+
+    t.is(collection.getList().length, 3);
+
+    filterConcepts(collection);
+
+    t.is(collection.getList().length, 1);
+    t.is(collection.getList()[0].type, 'PERSON');
+});

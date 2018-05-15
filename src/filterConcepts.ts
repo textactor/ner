@@ -53,27 +53,40 @@ export function identifyPartialConcepts(collection: EConceptCollection) {
     // debug(`ordered concepts first: ${concepts[0].value}, last: ${concepts[concepts.length - 1].value}`);
     for (let i = 0; i < concepts.length; i++) {
         const concept = concepts[i];
-        if (concept.countWords < 2 || concept.isAbbr || !concept.actor) {
+        if (concept.countWords < 2 || concept.isAbbr) {
+            continue;
+        }
+        if (!concept.actor && !concept.type) {
             continue;
         }
 
-        for (let j = i + 1; j < concepts.length; j++) {
+        for (let j = 0; j < concepts.length; j++) {
             const childConcept = concepts[j];
             if (childConcept.countWords >= concept.countWords) {
                 continue;
             }
+            let found = false;
             if (childConcept.isAbbr) {
                 if (concept.abbr && concept.abbr === childConcept.value) {
                     debug(`found abbr child concept: ${childConcept.value}`);
-                    childConcept.actor = concept.actor;
+                    found = true;
                 }
             } else if (!childConcept.parentId) {
-                if (concept.actor.type === ActorType.PERSON || concept.type === ActorType.PERSON) {
+                if (concept.actor && concept.actor.type === ActorType.PERSON
+                    || concept.type === ActorType.PERSON) {
                     const reg = new RegExp('\\b' + childConcept.value + '\\b');
                     if (reg.test(concept.value)) {
                         debug(`found partial child concept: ${childConcept.value}`);
-                        childConcept.actor = concept.actor;
+                        found = true;
                     }
+                }
+            }
+            if (found) {
+                if (concept.actor) {
+                    childConcept.actor = concept.actor;
+                } else {
+                    delete childConcept.actor;
+                    delete childConcept.type;
                 }
             }
         }
