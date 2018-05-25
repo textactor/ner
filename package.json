@@ -1,6 +1,6 @@
 {
   "name": "@textactor/ner",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "TextActor NER",
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
@@ -14,9 +14,7 @@
     "postversion": "git push --follow-tags",
     "prepublishOnly": "npm run tsc && npm run clean-test-code",
     "clean": "rimraf ./lib && rimraf ./types",
-    "clean-test-code": "rimraf ./lib/**/*.test.js && rimraf ./types/**/*.test.d.ts",
-    "dev": "yarn remove @textactor/actor-domain && yarn link @textactor/actor-domain",
-    "prod": "yarn unlink @textactor/actor-domain && yarn add @textactor/actor-domain"
+    "clean-test-code": "rimraf ./lib/**/*.test.js && rimraf ./types/**/*.test.d.ts"
   },
   "engines": {
     "node": ">=4.0.0"
@@ -42,8 +40,8 @@
     "typescript": "latest"
   },
   "dependencies": {
-    "@textactor/actor-domain": "^0.1.2",
-    "@textactor/domain": "^0.1.4",
+    "@textactor/actor-domain": "^0.1.3",
+    "@textactor/domain": "^0.1.5",
     "concepts-parser": "^1.3.1"
   }
 }

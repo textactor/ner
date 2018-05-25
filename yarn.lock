@@ -44,16 +44,16 @@
   dependencies:
     arrify "^1.0.1"
 
-"@textactor/actor-domain@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@textactor/actor-domain/-/actor-domain-0.1.2.tgz#6e4ea0a77484cd6737f9401307477a69dd4d4bbc"
+"@textactor/actor-domain@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@textactor/actor-domain/-/actor-domain-0.1.3.tgz#9aa607c7f329151d71f380e0a39431a492dbd619"
   dependencies:
-    "@textactor/domain" "^0.1.4"
+    "@textactor/domain" "^0.1.5"
     shortid "^2.2.8"
 
-"@textactor/domain@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@textactor/domain/-/domain-0.1.4.tgz#6dc901d7442ed83e64866578a729cf386e288471"
+"@textactor/domain@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@textactor/domain/-/domain-0.1.5.tgz#e16413deb53f0e1cbc841cfb532c619a50df9b59"
   dependencies:
     atonic "^1.0.4"
     slugify "^1.2.9"
@@ -2465,8 +2465,8 @@ slide@^1.1.5:
   resolved "https://registry.yarnpkg.com/slide/-/slide-1.1.6.tgz#56eb027d65b4d2dce6cb2e2d32c4d4afc9e1d707"
 
 slugify@^1.2.9:
-  version "1.2.9"
-  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.2.9.tgz#c3d518f5136b3c69345d5d0bbbcde7412b5694aa"
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/slugify/-/slugify-1.3.0.tgz#787919259d28c825fbcae6da2e01c77a109793f6"
 
 sntp@1.x.x:
   version "1.0.9"
