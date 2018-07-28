@@ -1,7 +1,7 @@
 
 const debug = require('debug')('textactor:ner');
 
-import { EConceptCollection, EConcept } from "./conceptCollection";
+import { EConceptCollection, EConcept } from "./concept-collection";
 import { ActorType } from "@textactor/actor-domain";
 
 export function filterConcepts(collection: EConceptCollection): EConceptCollection {
@@ -20,7 +20,7 @@ export function filterConcepts(collection: EConceptCollection): EConceptCollecti
         if (concept.parentId) {
             debug(`concept with parentId=${concept.value}`)
             const parentConcepts = collection.getById(concept.parentId);
-            if (parentConcepts.length) {
+            if (parentConcepts && parentConcepts.length) {
                 if (parentConcepts[0].actor || parentConcepts[0].type) {
                     debug(`removing child concept: ${concept.value}`);
                     // collection.removeById(concept.id);
@@ -60,7 +60,7 @@ export function identifyPartialConcepts(collection: EConceptCollection) {
             continue;
         }
 
-        for (let j = 0; j < concepts.length; j++) {
+        for (let j = i; j < concepts.length; j++) {
             const childConcept = concepts[j];
             if (childConcept.countWords >= concept.countWords) {
                 continue;

@@ -1,7 +1,7 @@
 
 // const debug = require('debug')('textactor:ner');
 
-import { EConceptCollection, EConcept } from "./conceptCollection";
+import { EConceptCollection, EConcept } from "./concept-collection";
 import { EResult, EResultEntityItem, EResultEntity, EResultInput } from "./types";
 
 export function formatResult(concepts: EConceptCollection): EResult {

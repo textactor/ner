@@ -22,8 +22,9 @@ export class EConceptCollection {
 
         for (let concept of concepts) {
             this.list.push(concept);
-            if (this.map.has(concept.id)) {
-                this.map.get(concept.id).push(concept);
+            const mapList = this.map.get(concept.id);
+            if (mapList) {
+                mapList.push(concept);
             } else {
                 this.map.set(concept.id, [concept]);
             }
@@ -32,7 +33,7 @@ export class EConceptCollection {
 
     removeById(id: string) {
         const concepts = this.map.get(id);
-        if (!concepts || concepts.length === 0) {
+        if (!concepts || !concepts.length) {
             return;
         }
         this.map.delete(id);
@@ -42,6 +43,7 @@ export class EConceptCollection {
             debug(`deleted concept: ${concept.value}, ${len}>${this.list.length}`);
         }
     }
+
     remove(concept: EConcept) {
         const concepts = this.map.get(concept.id) || [];
         if (!concepts.length) {
@@ -49,19 +51,29 @@ export class EConceptCollection {
         }
         let index = concepts.indexOf(concept);
         if (index < 0) {
-            return;
+            throw new Error(`not found concept=${concept.id} in map list`);
         }
         concepts.splice(index, 1);
+        if (!concepts.length) {
+            this.map.delete(concept.id);
+        }
         index = this.list.indexOf(concept);
+        if (index < 0) {
+            throw new Error(`not found concept=${concept.id} in list`);
+        }
         this.list.splice(index, 1);
         debug(`deleted concept: ${concept.value}`);
     }
 
     setActor(id: string, actor: Actor) {
-        this.map.get(id).forEach(item => item.actor = actor);
+        const mapList = this.map.get(id);
+        if (!mapList) {
+            throw new Error(`Not found items with id=${id}`);
+        }
+        mapList.forEach(item => item.actor = actor);
     }
 
-    getByAbbr(abbr: string): EConcept {
+    findByAbbr(abbr: string): EConcept | undefined {
         for (let concept of this.list) {
             if (concept.abbr === abbr) {
                 return concept;
@@ -70,7 +82,7 @@ export class EConceptCollection {
     }
 
     getById(id: string) {
-        return this.map.get(id) || [];
+        return this.map.get(id);
     }
 }
 
@@ -101,7 +113,9 @@ export class EConcept {
         if (this.countWords === 1) {
             return [];
         }
-        return (new Concept({ value: this.value, index: this.index, lang })).split().map(item => EConcept.create(item, lang, country));
+        return (new Concept({ value: this.value, index: this.index, lang }))
+            .split()
+            .map(item => EConcept.create(item, lang, country));
     }
 
     static create(concept: Concept, lang: string, country: string) {
@@ -113,7 +127,7 @@ export class EConcept {
     }
 }
 
-function toActorType(conceptType: string): ActorType {
+function toActorType(conceptType: string): ActorType | undefined {
     switch (conceptType) {
         case 'PERSON': return ActorType.PERSON;
     }

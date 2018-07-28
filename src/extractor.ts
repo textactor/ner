@@ -4,10 +4,10 @@ const debug = require('debug')('textactor:ner');
 import { IActorReadRepository, Actor, IActorNameReadRepository } from "@textactor/actor-domain";
 import { uniq } from '@textactor/domain';
 import { Context, EResult } from "./types";
-import { getConcepts } from "./getConcepts";
-import { filterConcepts } from "./filterConcepts";
-import { formatResult } from "./formatResult";
-import { EConceptCollection } from "./conceptCollection";
+import { getConcepts } from "./get-concepts";
+import { filterConcepts } from "./filter-concepts";
+import { formatResult } from "./format-result";
+import { EConceptCollection } from "./concept-collection";
 
 export class Extractor {
     constructor(private actorRep: IActorReadRepository, private nameRep: IActorNameReadRepository) { }
