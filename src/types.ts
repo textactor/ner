@@ -15,6 +15,7 @@ export type EResultEntity = {
     wikiPageTitle?: string
     description?: string
     type?: ActorType
+    commonName?: string
 }
 
 export type EResultInput = {

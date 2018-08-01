@@ -56,6 +56,10 @@ function toResultEntity(concept: EConcept): EResultEntity {
         if (actor.wikiDataId) {
             entity.wikiDataId = actor.wikiDataId;
         }
+
+        if (actor.commonName) {
+            entity.commonName = actor.commonName;
+        }
     } else {
         if (concept.type) {
             entity.type = concept.type;
