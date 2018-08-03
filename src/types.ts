@@ -16,6 +16,7 @@ export type EResultEntity = {
     description?: string
     type?: ActorType
     commonName?: string
+    englishName?: string
 }
 
 export type EResultInput = {

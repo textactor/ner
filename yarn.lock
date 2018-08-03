@@ -53,9 +53,9 @@
     pretty-ms "^0.2.1"
     text-table "^0.2.0"
 
-"@textactor/actor-domain@^0.1.6":
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/@textactor/actor-domain/-/actor-domain-0.1.6.tgz#ecf6c26da8135356979863073aa628cb496dfaf8"
+"@textactor/actor-domain@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@textactor/actor-domain/-/actor-domain-0.1.7.tgz#e4553ac6093dd2d6e560a7b343fbdc9fcb219d1a"
   dependencies:
     "@textactor/domain" "^0.1.6"
     fast-array-diff "^0.2.0"

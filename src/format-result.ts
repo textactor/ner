@@ -60,6 +60,9 @@ function toResultEntity(concept: EConcept): EResultEntity {
         if (actor.commonName) {
             entity.commonName = actor.commonName;
         }
+        if (actor.englishName) {
+            entity.englishName = actor.englishName;
+        }
     } else {
         if (concept.type) {
             entity.type = concept.type;
