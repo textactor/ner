@@ -63,6 +63,9 @@ function toResultEntity(concept: EConcept): EResultEntity {
         if (actor.englishName) {
             entity.englishName = actor.englishName;
         }
+        if (actor.abbr) {
+            entity.abbr = actor.abbr;
+        }
     } else {
         if (concept.type) {
             entity.type = concept.type;
