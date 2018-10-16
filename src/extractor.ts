@@ -30,7 +30,17 @@ export class Extractor {
     }
 
     async getActors(concepts: EConceptCollection): Promise<Actor[]> {
-        const nameIds = uniq(concepts.getList().map(concept => concept.id));
+        let nameIds = uniq(concepts.getList().map(concept => concept.id));
+
+        if (nameIds.length === 0) {
+            debug(`No concept names found`);
+            return [];
+        }
+
+        if (nameIds.length > 100) {
+            debug(`more then 100 concept names: ${nameIds.length}`);
+            nameIds = nameIds.slice(0, 100);
+        }
 
         const actorNames = await this.nameRep.getByIds(nameIds);
 
@@ -39,7 +49,12 @@ export class Extractor {
             return [];
         }
 
-        const actorIds = uniq(actorNames.map(item => item.actorId));
+        let actorIds = uniq(actorNames.map(item => item.actorId));
+
+        if (actorIds.length > 100) {
+            debug(`more then 100 actor ids: ${actorIds.length}`);
+            actorIds = actorIds.slice(0, 100);
+        }
 
         const actors = await this.actorRep.getByIds(actorIds);
 
