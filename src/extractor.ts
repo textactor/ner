@@ -1,7 +1,7 @@
 
 const debug = require('debug')('textactor:ner');
 
-import { IActorReadRepository, Actor, IActorNameReadRepository } from "@textactor/actor-domain";
+import { ActorRepository, Actor, ActorNameRepository } from "@textactor/actor-domain";
 import { uniq } from '@textactor/domain';
 import { Context, EResult } from "./types";
 import { getConcepts } from "./get-concepts";
@@ -10,7 +10,7 @@ import { formatResult } from "./format-result";
 import { EConceptCollection } from "./concept-collection";
 
 export class Extractor {
-    constructor(private actorRep: IActorReadRepository, private nameRep: IActorNameReadRepository) { }
+    constructor(private actorRep: ActorRepository, private nameRep: ActorNameRepository) { }
 
     async extract(context: Context): Promise<EResult> {
         const concepts = getConcepts(context);

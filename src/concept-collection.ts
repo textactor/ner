@@ -119,16 +119,10 @@ export class EConcept {
     }
 
     static create(concept: Concept, lang: string, country: string) {
-        return new EConcept(concept.value, concept.index, lang, country, concept.abbr, toActorType(concept.type));
+        return new EConcept(concept.value, concept.index, lang, country, concept.abbr);
     }
 
     static createId(value: string, lang: string, country: string) {
         return ActorHelper.createNameId(value, lang, country);
-    }
-}
-
-function toActorType(conceptType: string): ActorType | undefined {
-    switch (conceptType) {
-        case 'PERSON': return ActorType.PERSON;
     }
 }

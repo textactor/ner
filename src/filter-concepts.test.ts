@@ -25,9 +25,9 @@ test('identifyPartialConcepts: ABBR', t => {
 
     t.is(collection.getList().length, 2);
     let item = collection.getList()[0];
-    t.truthy(item.actor && (t.is(item.actor.name, 'Name') || 1));
+    item.actor && t.is(item.actor.name, 'Name');
     item = collection.getList()[1];
-    t.truthy(item.actor && (t.is(item.actor.name, 'Name') || 1));
+    item.actor && t.is(item.actor.name, 'Name');
 });
 
 test('identifyPartialConcepts', t => {
@@ -49,7 +49,7 @@ test('identifyPartialConcepts', t => {
 
     t.is(collection.getList().length, 2);
     let item = collection.getList()[0];
-    t.truthy(item.actor && (t.is(item.actor.name, 'Name') || 1));
+    item.actor && t.is(item.actor.name, 'Name');
     t.is(collection.getList()[1].actor, undefined);
 });
 
@@ -73,7 +73,7 @@ test('not identifyPartialConcepts', t => {
 
     t.is(collection.getList().length, 2);
     const item = collection.getList()[0];
-    t.truthy(item.actor && (t.is(item.actor.name, 'Name') || 1));
+    item.actor && t.is(item.actor.name, 'Name');
     t.is(collection.getList()[1].actor, undefined);
 });
 
@@ -98,7 +98,7 @@ test('filter child concept', t => {
 
     t.is(collection.getList().length, 1);
     const item = collection.getList()[0];
-    t.truthy(item.actor && (t.is(item.actor.name, 'Name') || 1));
+    item.actor && t.is(item.actor.name, 'Name');
 });
 
 test('filter child concept by type', t => {
