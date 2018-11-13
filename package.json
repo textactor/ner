@@ -1,6 +1,6 @@
 {
   "name": "@textactor/ner",
-  "version": "0.1.10",
+  "version": "0.2.0",
   "description": "TextActor NER",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
