@@ -34,14 +34,14 @@
   },
   "homepage": "https://github.com/textactor/ner#readme",
   "devDependencies": {
-    "@types/node": "10.12.6",
+    "@types/node": "10.12.12",
     "ava": "^0.25.0",
     "rimraf": "^2.6.2",
-    "typescript": "3.1.6"
+    "typescript": "3.2.1"
   },
   "dependencies": {
-    "@textactor/actor-domain": "^0.2.0",
+    "@textactor/actor-domain": "^0.2.2",
     "@textactor/domain": "^0.2.0",
-    "concepts-parser": "^1.5.2"
+    "concepts-parser": "^1.5.3"
   }
 }
