@@ -1,6 +1,6 @@
 {
   "name": "@textactor/ner",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "TextActor NER",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -40,8 +40,8 @@
     "typescript": "3.2.2"
   },
   "dependencies": {
-    "@textactor/actor-domain": "^0.2.4",
-    "@textactor/domain": "^0.3.1",
-    "concepts-parser": "^1.5.5"
+    "@textactor/actor-domain": "^0.2.x",
+    "@textactor/domain": "^0.3.x",
+    "concepts-parser": "^1.5.x"
   }
 }
